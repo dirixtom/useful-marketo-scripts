@@ -1,0 +1,30 @@
+name: Label PR with PR Number
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  label-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Extract PR number
+        id: pr_number
+        run: |
+          PR_NUMBER=$(jq --raw-output .pull_request.number $GITHUB_EVENT_PATH)
+          echo "PR Number is: $PR_NUMBER"
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+
+      - name: Label PR with PR Number
+        run: |
+          PR_NUMBER=$GITHUB_ENV
+          LABEL="PR-$PR_NUMBER"
+          echo "Adding label $LABEL to PR"
+
+          # Use GitHub CLI to add label
+          gh pr edit $PR_NUMBER --add-label "$LABEL"

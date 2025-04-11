@@ -1,0 +1,44 @@
+# Label releases with version numbers, PRs targeting main branch
+release-version:
+  - base-branch: 'main'
+  - commit-message:
+      - any-glob-to-any-file: '*v[0-9]*\.[0-9]*\.[0-9]*'
+
+# Small updates (patch-level changes)
+patch:
+  - commit-message:
+      - any-glob-to-any-file: '*v[0-9]*\.[0-9]*\.[1-9][0-9]*'
+
+# Medium updates (minor-level changes)
+minor:
+  - commit-message:
+      - any-glob-to-any-file: '*v[0-9]*\.[1-9][0-9]*\.[0-9]*'
+
+# Major updates (breaking changes)
+major:
+  - commit-message:
+      - any-glob-to-any-file: '*v[0-9]*\.[0-9]*\.[1-9][0-9]*'
+
+# Documentation-specific labels for different types of version updates
+patch-doc:
+  - changed-files:
+      - any-glob-to-any-file: 'docs/**'
+  - commit-message:
+      - any-glob-to-any-file: '*v[0-9]*\.[0-9]*\.[1-9][0-9]*'
+
+minor-doc:
+  - changed-files:
+      - any-glob-to-any-file: 'docs/**'
+  - commit-message:
+      - any-glob-to-any-file: '*v[0-9]*\.[1-9][0-9]*\.[0-9]*'
+
+major-doc:
+  - changed-files:
+      - any-glob-to-any-file: 'docs/**'
+  - commit-message:
+      - any-glob-to-any-file: '*v[0-9]*\.[0-9]*\.[1-9][0-9]*'
+
+# Add 'AnyChange' label to any changes within the repository
+AnyChange:
+  - changed-files:
+      - any-glob-to-any-file: '**'
